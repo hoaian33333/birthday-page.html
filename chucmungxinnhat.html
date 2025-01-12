@@ -3,45 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bánh Kem và Hộp Quà</title>
+    <title>Chúc Mừng Sinh Nhật</title>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            text-align: center;
-            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            background: linear-gradient(45deg, #ff8c8c, #ffddc1);
+            color: #fff;
             margin: 0;
             padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden;
-            color: #333;
+            text-align: center;
+            overflow-x: hidden;
         }
         h1 {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
+            margin-top: 50px;
+            font-family: 'Great Vibes', cursive;
+            text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.3);
+        }
+        .subtitle {
+            font-size: 1.5rem;
+            margin-top: 20px;
             color: #fff;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
         }
         .cake {
-            position: relative;
-            width: 200px;
-            height: 200px;
+            width: 300px;
+            height: 250px;
             background: #ffd966;
+            border-radius: 15px;
+            margin: 30px auto;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        }
+        .cake .layer {
+            position: absolute;
+            width: 100%;
+            height: 50px;
+            background: #ffb3b3;
             border-radius: 10px;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            top: 20px;
+        }
+        .cake .layer:nth-child(2) {
+            top: 80px;
+            width: 90%;
+            left: 5%;
+        }
+        .cake .layer:nth-child(3) {
+            top: 140px;
+            width: 80%;
+            left: 10%;
         }
         .cake .candle {
             position: absolute;
-            top: -50px;
+            top: -60px;
             left: 50%;
-            transform: translateX(-50%);
             width: 20px;
             height: 50px;
             background: #ffcc00;
             border-radius: 10px;
+            transform: translateX(-50%);
         }
         .cake .flame {
             position: absolute;
@@ -52,79 +73,96 @@
             background: radial-gradient(circle, yellow, orange, red);
             border-radius: 50%;
             transform: translateX(-50%);
-            animation: flicker 0.5s infinite alternate;
         }
         .btn {
             display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            font-size: 1rem;
-            background: #ff6f61;
+            margin-top: 30px;
+            padding: 15px 30px;
+            background-color: #ff6f61;
             color: #fff;
+            font-size: 1.2rem;
             border: none;
-            border-radius: 5px;
+            border-radius: 10px;
             cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-            transition: background 0.3s ease;
+            transition: background-color 0.3s;
         }
         .btn:hover {
-            background: #ff3d3d;
+            background-color: #ff3d3d;
         }
-        .gift-container {
+        .gift-box-container {
             display: none;
             margin-top: 30px;
         }
         .gift-box {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            background: #ff6f61;
+            width: 180px;
+            height: 180px;
+            background-color: #ff6f61;
             border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            position: relative;
+            margin: 0 auto;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
         }
         .lid {
             position: absolute;
-            width: 150px;
-            height: 40px;
-            background: #ff3d3d;
+            width: 100%;
+            height: 50px;
+            background-color: #ff3d3d;
             border-radius: 10px 10px 0 0;
             top: 0;
             left: 0;
-            transition: transform 0.6s ease-in-out;
             transform-origin: top center;
+            transition: transform 0.5s ease-in-out;
         }
         .ribbon {
             position: absolute;
-            width: 20px;
+            width: 15px;
             height: 100%;
-            background: #fff;
-            left: 50%;
+            background-color: #fff;
             top: 0;
+            left: 50%;
             transform: translateX(-50%);
-            z-index: 2;
         }
         .message {
             display: none;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             color: #fff;
             margin-top: 20px;
-            animation: fadeIn 0.8s ease-in-out forwards;
+            animation: fadeIn 1s ease-out forwards;
         }
-        .gift-box.open .lid {
-            transform: rotateX(-120deg);
+
+        /* Pháo chúc mừng */
+        .fireworks {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
         }
-        .gift-box.open ~ .message {
-            display: block;
+        .firework {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, #ff0000, #ffcc00, #ffff00);
+            animation: fireworks 1s ease-out infinite;
         }
-        @keyframes flicker {
-            0% { opacity: 1; }
-            100% { opacity: 0.8; }
+        @keyframes fireworks {
+            0% {
+                width: 10px;
+                height: 10px;
+                opacity: 1;
+                transform: translate(0, 0);
+            }
+            100% {
+                width: 100px;
+                height: 100px;
+                opacity: 0;
+                transform: translate(random, random);
+            }
         }
-        @keyframes fadeOut {
-            from { opacity: 1; }
-            to { opacity: 0; }
-        }
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
@@ -132,43 +170,79 @@
     </style>
 </head>
 <body>
-    <h1>Thổi Nến và Nhận Quà!</h1>
+
+    <h1>Chúc Mừng Sinh Nhật!</h1>
+    <p class="subtitle">Hãy thổi nến để nhận món quà bất ngờ!</p>
+
     <div class="cake">
+        <div class="layer"></div>
+        <div class="layer"></div>
+        <div class="layer"></div>
         <div class="candle">
             <div class="flame"></div>
         </div>
     </div>
+
     <button class="btn" onclick="blowCandle()">Thổi Nến</button>
-    <div class="gift-container">
+
+    <div class="gift-box-container">
         <div class="gift-box" onclick="openGift()">
             <div class="lid"></div>
             <div class="ribbon"></div>
         </div>
-        <p class="message">🎉 Chúc quản lý xinh nhật vui vẻ tuổi mới càng thêm xinh đẹp công việc thuân lợi, tình duyên không trắc trở! 🎉</p>
+        <p class="message">🎉 Chúc quản lý có một sinh nhật vui vẻ, tuổi mới thêm xinh đẹp, công việc thuận lợi, tình duyên nở hoa! 🎉</p>
     </div>
+
+    <div class="fireworks" id="fireworks"></div>
 
     <script>
         function blowCandle() {
             const flame = document.querySelector('.flame');
             const button = document.querySelector('.btn');
-            const giftContainer = document.querySelector('.gift-container');
+            const giftBoxContainer = document.querySelector('.gift-box-container');
+            const fireworksContainer = document.getElementById('fireworks');
 
             // Tắt ngọn lửa
-            flame.style.animation = 'fadeOut 0.5s forwards';
-            
-            // Ẩn nút "Thổi Nến"
+            flame.style.animation = 'fadeOut 1s forwards';
+            flame.style.opacity = '0';
+
+            // Ẩn nút thổi nến
             button.style.display = 'none';
 
-            // Hiển thị hộp quà sau khi nến tắt
+            // Hiển thị hộp quà sau khi thổi nến
             setTimeout(() => {
-                giftContainer.style.display = 'block';
-            }, 800);
+                giftBoxContainer.style.display = 'block';
+                showFireworks();
+            }, 1000);
         }
 
         function openGift() {
             const giftBox = document.querySelector('.gift-box');
-            giftBox.classList.add('open');
+            const lid = document.querySelector('.lid');
+            const message = document.querySelector('.message');
+
+            // Mở nắp quà
+            lid.style.transform = 'rotateX(-120deg)';
+
+            // Hiển thị lời chúc
+            setTimeout(() => {
+                message.style.display = 'block';
+            }, 600);
+        }
+
+        function showFireworks() {
+            const fireworksContainer = document.getElementById('fireworks');
+            fireworksContainer.style.display = 'block';
+
+            for (let i = 0; i < 10; i++) {
+                const firework = document.createElement('div');
+                firework.classList.add('firework');
+                firework.style.top = `${Math.random() * 100}%`;
+                firework.style.left = `${Math.random() * 100}%`;
+                fireworksContainer.appendChild(firework);
+            }
         }
     </script>
+
 </body>
 </html>
